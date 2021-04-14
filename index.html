@@ -16,26 +16,67 @@
 	
 	<div class="searchBox">
 		<input type="text" > <span class="material-icons">search</span> 
-		<button type="submit" name="search"> Search </button> 
+		<button type="submit" name="search" id = "searchButton"> Search </button> 
 	</div>
 	<div class="randomContainer"> 
-		<button type="submit" name="Random"> Random <span class="material-icons">loop</span> </button> 
+		<button type="submit" name="Random" id = "randomButton"> Random <span class="material-icons">loop</span> </button> 
 	</div>
 </section>
 <section class="body">
-	<h1 class="HeaderText">Bill Gates </h1>
+	<h1 class="HeaderText" id = "author">Bill Gates </h1>
 	<div class="phrasesContainer">
-		<div class="phraseBox">Lorem ipsum dolor sit amet consectetur, adipisicing, elit. Quasi sequi at quos obcaecati libero dolores accusantium autem consequuntur itaque, necessitatibus. Quod sunt ratione architecto iure labore cupiditate dolorem! Delectus, sequi. </div>
-		<div class="phraseBox"> Lorem ipsum dolor, sit amet consectetur adipisicing, elit. Molestiae quisquam beatae illum eveniet, ipsa, non amet voluptate earum tenetur reiciendis fuga natus! Culpa quasi nam consequatur incidunt, non id maxime. </div>
-		<div class="phraseBox"> Lorem ipsum dolor sit, amet, consectetur adipisicing elit. Facere, architecto possimus tempora deserunt asperiores vitae voluptate, atque itaque neque, quidem tempore, sunt nostrum ea porro. Ad sit reprehenderit accusamus in. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta magnam, aut mollitia sapiente ea nihil, error ratione officia nobis doloribus. Quidem distinctio suscipit voluptatibus nostrum voluptas facere nihil fuga pariatur.</div>
-		<div class="phraseBox"> Lorem ipsum dolor sit, amet, consectetur adipisicing elit. Facere, architecto possimus tempora deserunt asperiores vitae voluptate, atque itaque neque, quidem tempore, sunt nostrum ea porro. Ad sit reprehenderit accusamus in.</div>
-		<div class="phraseBox"> Lorem ipsum dolor sit, amet, consectetur adipisicing elit. Facere, architecto possimus tempora deserunt asperiores vitae voluptate, atque itaque neque, quidem tempore, sunt nostrum ea porro. Ad sit reprehenderit accusamus in.</div>
+		<div class="phraseBox"> 
+			<div class="PhraseTitle"> 
+				<p class="genre" name = "subject">Technology</p> 
+			</div>
+			<p class="quote">Lorem ipsum dolor sit amet consectetur, adipisicing, elit. Quasi sequi at quos obcaecati libero dolores accusantium autem consequuntur itaque, necessitatibus. Quod sunt ratione architecto iure labore cupiditate dolorem! Delectus, sequi.</p> 
+		</div>
 
+		<div class="phraseBox"> <p class="quote">Lorem ipsum dolor, sit amet consectetur adipisicing, elit. Molestiae quisquam beatae illum eveniet, ipsa, non amet voluptate earum tenetur reiciendis fuga natus! Culpa quasi nam consequatur incidunt, non id maxime. </p></div>
+		<div class="phraseBox"> <p class="quote"> Lorem ipsum dolor sit, amet, consectetur adipisicing elit. Facere, architecto possimus tempora deserunt asperiores vitae voluptate, atque itaque neque, quidem tempore, sunt nostrum ea porro. Ad sit reprehenderit accusamus in. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta magnam, aut mollitia sapiente ea nihil, error ratione officia nobis doloribus. Quidem distinctio suscipit voluptatibus nostrum voluptas facere nihil fuga pariatur.</p></div>
+		<div class="phraseBox"> <p class="quote"> Lorem ipsum dolor sit, amet, consectetur adipisicing elit. Facere, architecto possimus tempora deserunt asperiores vitae voluptate, atque itaque neque, quidem tempore, sunt nostrum ea porro. Ad sit reprehenderit accusamus in.</p></div>
 	</div>
 </section>
 
 <footer> <img src="images/StacklyCode_ico.png" alt="StacklyCode_ico"> </footer>
 
+<script>
+	const quote = document.querySelector(".quote")
+	const author = document.querySelector("#author")
+	const randomButton = document.querySelector("#randomButton")
+	const genre = document.querySelector(".genre")
+	const url_random = "https://quote-garden.herokuapp.com/api/v3/quotes/random"
+	const url_request = "https://quote-garden.herokuapp.com/api/v3/quotes"
+	var params = {
+		"author": "Bill Gates",
+		"limit": 4
+	}
+	/*
+	var request = new Request(url_request, {
+		method: 'GET',
+		body: JSON.stringify(params),
+		headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+	})*/
+
+	randomButton.addEventListener("click", getRandomQuote)
+	function getRandomQuote() {
+		fetch(url_random)
+		.then (response => response.json())
+		.then (res => {
+			quote.innerHTML = `"${res.data[0].quoteText}"`
+			genre.innerHTML = res.data[0].quoteGenre.charAt(0).toUpperCase() + res.data[0].quoteGenre.slice(1)
+			author.innerHTML = res.data[0].quoteAuthor
+		});
+	}
+	searchButton.addEventListener("click", searchAuthor)
+	url_request.search = new URLSearchParams(params)
+	function searchAuthor() {
+		fetch(url_request, params)
+		.then(response => console.log(response.json()))
+	}
+</script>
 	
 </body>
 </html>

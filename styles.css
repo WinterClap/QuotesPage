@@ -51,6 +51,7 @@ header img {
 	margin-right: 30px;
 	font-size: 18px;
 	text-decoration-style:  none;
+
 }
 
 .searchContainer .searchBox span {
@@ -68,7 +69,8 @@ header img {
 	border: none;
 	height: 50px;
 	width: 120px;
-	box-shadow: 0px 0px 25px rgba(15,15,15,0.38)
+	box-shadow: 0px 0px 25px rgba(15,15,15,0.38);
+	cursor: pointer;
 }
 
 
@@ -77,6 +79,7 @@ header img {
 }
 
 .randomContainer button {
+	cursor: pointer;
 	color: #172e5e;
 	border: 3px solid black;
 	padding: 0 50px;
@@ -105,8 +108,8 @@ header img {
 }
 
 .HeaderText {
-	margin: 20px;
-	font-size: 32px;
+	margin: 40px 20px 30px 20px;
+	font-size: 40px;
 	font-weight: 700;
 	color: #172e5e;
 }
@@ -116,6 +119,7 @@ header img {
 	align-items: flex-start;
 	width: 50%;
 	flex-wrap: wrap;
+	padding:0;
 	/*border:10px solid black;*/
 }
 
@@ -126,9 +130,31 @@ header img {
 	color: #172e5e;
 	margin: 20px;
 	border-radius: 15px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
-
-
+.phrasesContainer .phraseBox .quote {
+	margin-top: 20px;
+	text-align: center;
+}
+.phrasesContainer .phraseBox .PhraseTitle {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+	border-radius: 15px;
+	background-color: #5d97fd;
+	font-size: 16px;
+	
+	
+}
+.phrasesContainer .phraseBox .PhraseTitle .genre {
+	padding:0 10px;
+	margin:10px;
+	
+}
 
 footer {
 	display: flex;
