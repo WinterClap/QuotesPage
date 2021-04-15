@@ -45,22 +45,18 @@
 	const author = document.querySelector("#author")
 	const randomButton = document.querySelector("#randomButton")
 	const genre = document.querySelector(".genre")
-	const url_random = "https://quote-garden.herokuapp.com/api/v3/quotes/random"
-	const url_request = "https://quote-garden.herokuapp.com/api/v3/quotes"
-	var params = {
-		"author": "Bill Gates",
-		"limit": 4
+	var url_random = new URL("https://quote-garden.herokuapp.com/api/v3/quotes/random")
+	var url_request = new URL("https://quote-garden.herokuapp.com/api/v3/quotes")
+	var params_search = {
+		author: "Bill Gates",
+		limit: 4
 	}
-	/*
-	var request = new Request(url_request, {
-		method: 'GET',
-		body: JSON.stringify(params),
-		headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-        }
-	})*/
+
 
 	randomButton.addEventListener("click", getRandomQuote)
+
+	url_random.search = new URLSearchParams([["count", 4]]).toString()
+
 	function getRandomQuote() {
 		fetch(url_random)
 		.then (response => response.json())
@@ -70,10 +66,18 @@
 			author.innerHTML = res.data[0].quoteAuthor
 		});
 	}
+
+
+
 	searchButton.addEventListener("click", searchAuthor)
-	url_request.search = new URLSearchParams(params)
+
+	url_request.search = new URLSearchParams(params_search).toString()
+
+
+
+	console.log(url_request.toString())
 	function searchAuthor() {
-		fetch(url_request, params)
+		fetch(url_request)
 		.then(response => console.log(response.json()))
 	}
 </script>
