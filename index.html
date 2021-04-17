@@ -15,7 +15,7 @@
 <section class="searchContainer">
 	
 	<div class="searchBox">
-		<input type="text" > <span class="material-icons">search</span> 
+		<input type="text" id = "searchBar"> <span class="material-icons">search</span> 
 		<button type="submit" name="search" id = "searchButton"> Search </button> 
 	</div>
 	<div class="randomContainer"> 
@@ -27,59 +27,141 @@
 	<div class="phrasesContainer">
 		<div class="phraseBox"> 
 			<div class="PhraseTitle"> 
-				<p class="genre" name = "subject">Technology</p> 
+				<p class="genre1" name = "subject">Technology</p> 
 			</div>
-			<p class="quote">Lorem ipsum dolor sit amet consectetur, adipisicing, elit. Quasi sequi at quos obcaecati libero dolores accusantium autem consequuntur itaque, necessitatibus. Quod sunt ratione architecto iure labore cupiditate dolorem! Delectus, sequi.</p> 
+			<p class="quote1">Lorem ipsum dolor sit amet consectetur, adipisicing, elit. Quasi sequi at quos obcaecati libero dolores accusantium autem consequuntur itaque, necessitatibus. Quod sunt ratione architecto iure labore cupiditate dolorem! Delectus, sequi.</p> 
 		</div>
 
-		<div class="phraseBox"> <p class="quote">Lorem ipsum dolor, sit amet consectetur adipisicing, elit. Molestiae quisquam beatae illum eveniet, ipsa, non amet voluptate earum tenetur reiciendis fuga natus! Culpa quasi nam consequatur incidunt, non id maxime. </p></div>
-		<div class="phraseBox"> <p class="quote"> Lorem ipsum dolor sit, amet, consectetur adipisicing elit. Facere, architecto possimus tempora deserunt asperiores vitae voluptate, atque itaque neque, quidem tempore, sunt nostrum ea porro. Ad sit reprehenderit accusamus in. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta magnam, aut mollitia sapiente ea nihil, error ratione officia nobis doloribus. Quidem distinctio suscipit voluptatibus nostrum voluptas facere nihil fuga pariatur.</p></div>
-		<div class="phraseBox"> <p class="quote"> Lorem ipsum dolor sit, amet, consectetur adipisicing elit. Facere, architecto possimus tempora deserunt asperiores vitae voluptate, atque itaque neque, quidem tempore, sunt nostrum ea porro. Ad sit reprehenderit accusamus in.</p></div>
+		<div class="phraseBox"> 
+			<div class="PhraseTitle"> 
+				<p class="genre2" name = "subject">Technology</p> 
+			</div>
+
+
+			<p class="quote2">Lorem ipsum dolor, sit amet consectetur adipisicing, elit. Molestiae quisquam beatae illum eveniet, ipsa, non amet voluptate earum tenetur reiciendis fuga natus! Culpa quasi nam consequatur incidunt, non id maxime. </p></div>
+		<div class="phraseBox"> 
+			<div class="PhraseTitle"> 
+				<p class="genre3" name = "subject">Technology</p> 
+			</div>
+			<p class="quote3"> Lorem ipsum dolor sit, amet, consectetur adipisicing elit. Facere, architecto possimus tempora deserunt asperiores vitae voluptate, atque itaque neque, quidem tempore, sunt nostrum ea porro. Ad sit reprehenderit accusamus in. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta magnam, aut mollitia sapiente ea nihil, error ratione officia nobis doloribus. Quidem distinctio suscipit voluptatibus nostrum voluptas facere nihil fuga pariatur.</p></div>
+		<div class="phraseBox"> 
+
+
+			<div class="PhraseTitle"> 
+				<p class="genre4" name = "subject">Technology</p> 
+			</div>
+
+
+			<p class="quote4"> Lorem ipsum dolor sit, amet, consectetur adipisicing elit. Facere, architecto possimus tempora deserunt asperiores vitae voluptate, atque itaque neque, quidem tempore, sunt nostrum ea porro. Ad sit reprehenderit accusamus in.</p></div>
 	</div>
 </section>
 
 <footer> <img src="images/StacklyCode_ico.png" alt="StacklyCode_ico"> </footer>
 
 <script>
-	const quote = document.querySelector(".quote")
+	const quote4 = document.querySelector(".quote4")
+	const quote3 = document.querySelector(".quote3")
+	const quote2 = document.querySelector(".quote2")
+	const quote1 = document.querySelector(".quote1")
 	const author = document.querySelector("#author")
 	const randomButton = document.querySelector("#randomButton")
-	const genre = document.querySelector(".genre")
+	const genre1 = document.querySelector(".genre1")
+	const genre2 = document.querySelector(".genre2")
+	const genre3 = document.querySelector(".genre3")
+	const genre4 = document.querySelector(".genre4")
 	var url_random = new URL("https://quote-garden.herokuapp.com/api/v3/quotes/random")
+	var url_random2 = new URL("https://quote-garden.herokuapp.com/api/v3/quotes/random")
 	var url_request = new URL("https://quote-garden.herokuapp.com/api/v3/quotes")
-	var params_search = {
-		author: "Bill Gates",
-		limit: 4
+	//var url_authors = new URL()
+	let authorSearch = ""
+
+
+	let authorSeed = ""
+	randomButton.addEventListener("click", getRandomQuoteE)
+	searchButton.addEventListener("click", searchAuthor)
+
+	url_random.search = new URLSearchParams({author: authorSeed, count: 4}).toString()
+	//[["count", 4]]
+
+	//let AuthorName
+	let authorNAME = ""
+	let aa
+	async function getRandomQuoteE() {
+		aa = await getRandomAuthor()
+		await console.log(authorNAME)
+		let res = await fetch(url_random)
+		res = await res.json()
+		//var AuthorName =  await res.data[0].quoteAuthor
+		author.innerHTML = await res.data[0].quoteAuthor
+		console.log(aa)
+		url_random2.search = await new URLSearchParams({author: aa, count: 4}).toString()
+		let res2 = await fetch(url_random2)
+			res2 = await res2.json()
+			quote1.innerHTML = await `"${res2.data[0].quoteText}"`
+			genre1.innerHTML = await res.data[0].quoteGenre.charAt(0).toUpperCase() + res.data[0].quoteGenre.slice(1)
+			quote2.innerHTML = await `"${res2.data[1].quoteText}"`
+			genre2.innerHTML = await res.data[1].quoteGenre.charAt(0).toUpperCase() + res.data[1].quoteGenre.slice(1)
+			quote3.innerHTML = await `"${res2.data[2].quoteText}"`
+			genre3.innerHTML = await res.data[2].quoteGenre.charAt(0).toUpperCase() + res.data[2].quoteGenre.slice(1)
+			quote4.innerHTML = await `"${res2.data[3].quoteText}"`
+			genre4.innerHTML = await res.data[3].quoteGenre.charAt(0).toUpperCase() + res.data[3].quoteGenre.slice(1)
 	}
 
-
-	randomButton.addEventListener("click", getRandomQuote)
-
-	url_random.search = new URLSearchParams([["count", 4]]).toString()
+	function getRandomAuthor() {
+		fetch(url_random)
+		.then(resp => resp.json())
+		.then(authorN => {authorNAME = authorN.data[0].quoteAuthor})
+		url_random.search = new URLSearchParams({author: authorNAME, count: 4}).toString()
+		return authorNAME
+	}
 
 	function getRandomQuote() {
+		
 		fetch(url_random)
 		.then (response => response.json())
 		.then (res => {
-			quote.innerHTML = `"${res.data[0].quoteText}"`
-			genre.innerHTML = res.data[0].quoteGenre.charAt(0).toUpperCase() + res.data[0].quoteGenre.slice(1)
-			author.innerHTML = res.data[0].quoteAuthor
+
+		})
+		.then ( res => {console.log(res.json())})
+		.then ( res => {
+			quote1.innerHTML = `"${res.data[0].quoteText}"`
+			genre1.innerHTML = res.data[0].quoteGenre.charAt(0).toUpperCase() + res.data[0].quoteGenre.slice(1)
+			quote2.innerHTML = `"${res.data[1].quoteText}"`
+			genre2.innerHTML = res.data[1].quoteGenre.charAt(0).toUpperCase() + res.data[1].quoteGenre.slice(1)
+			quote3.innerHTML = `"${res.data[2].quoteText}"`
+			genre3.innerHTML = res.data[2].quoteGenre.charAt(0).toUpperCase() + res.data[2].quoteGenre.slice(1)
+			quote4.innerHTML = `"${res.data[3].quoteText}"`
+			genre4.innerHTML = res.data[3].quoteGenre.charAt(0).toUpperCase() + res.data[3].quoteGenre.slice(1)
+
 		});
 	}
 
 
-
-	searchButton.addEventListener("click", searchAuthor)
-
-	url_request.search = new URLSearchParams(params_search).toString()
-
-
-
-	console.log(url_request.toString())
-	function searchAuthor() {
-		fetch(url_request)
-		.then(response => console.log(response.json()))
+	async function searchAuthor() {
+	authorSearch = document.getElementById("searchBar").value
+	var params_search = {
+		author: authorSearch,
+		limit: 4
 	}
+	url_request.search = new URLSearchParams(params_search).toString()
+	console.log(url_request.toString()) //Mostrar la url de la petición en la consola.
+
+	
+	let response = await fetch(url_request)
+	response = await response.json()
+
+	author.innerHTML = await response.data[0].quoteAuthor
+
+	quote1.innerHTML = await `"${response.data[0].quoteText}"`
+	genre1.innerHTML = await response.data[0].quoteGenre.charAt(0).toUpperCase() + response.data[0].quoteGenre.slice(1)
+	quote2.innerHTML = await `"${response.data[1].quoteText}"`
+	genre2.innerHTML = await response.data[1].quoteGenre.charAt(0).toUpperCase() + response.data[1].quoteGenre.slice(1)
+	quote3.innerHTML = await `"${response.data[2].quoteText}"`
+	genre3.innerHTML = await response.data[2].quoteGenre.charAt(0).toUpperCase() + response.data[2].quoteGenre.slice(1)
+	quote4.innerHTML = await `"${response.data[3].quoteText}"`
+	genre4.innerHTML = await response.data[3].quoteGenre.charAt(0).toUpperCase() + response.data[3].quoteGenre.slice(1)
+
+}
 </script>
 	
 </body>

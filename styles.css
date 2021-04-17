@@ -135,7 +135,7 @@ header img {
 	justify-content: center;
 	align-items: center;
 }
-.phrasesContainer .phraseBox .quote {
+.phrasesContainer .phraseBox .quote1, .quote2, .quote3, .quote4 {
 	margin-top: 20px;
 	text-align: center;
 }
@@ -150,7 +150,7 @@ header img {
 	
 	
 }
-.phrasesContainer .phraseBox .PhraseTitle .genre {
+.phrasesContainer .phraseBox .PhraseTitle .genre1, .genre2, .genre3, .genre4 {
 	padding:0 10px;
 	margin:10px;
 	
